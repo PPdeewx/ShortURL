@@ -23,7 +23,7 @@ const urls = ref([])
 
 const loadUrls = async () => {
   try {
-    const res = await axios.get('http://localhost:5000/api/history')
+    const res = await axios.get('https://shorturl-backend-n4pz.onrender.com/api/history')
     urls.value = res.data
   } catch (err) {
     console.error("Error loading URLs:", err)

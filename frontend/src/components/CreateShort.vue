@@ -35,7 +35,7 @@ const createShort = async () => {
   }
 
   try {
-    const res = await axios.post('http://localhost:5000/api/shorten', {
+    const res = await axios.post('https://shorturl-backend-n4pz.onrender.com/api/shorten', {
       longUrl: longUrl.value
     })
 
