@@ -6,6 +6,7 @@
           <th>Original URL</th>
           <th>Short URL</th>
           <th>Clicks</th>
+          <th>QR Code</th>
         </tr>
       </thead>
       <tbody>
@@ -17,11 +18,21 @@
           </td>
           <td>
             <div class="short-link-container">
-              <a :href="url.shortUrl" target="_blank" class="short-link">{{ url.shortUrl }}</a>
+              <a
+                :href="url.shortUrl"
+                target="_blank"
+                class="short-link"
+                @click="handleClick(url._id)"
+              >
+                {{ url.shortUrl }}
+              </a>
               <button class="copy-btn" @click="copyToClipboard(url.shortUrl)">Copy</button>
             </div>
           </td>
           <td>{{ url.clicks }}</td>
+          <td>
+            <qrcode-vue :value="url.shortUrl" :size="80" />
+          </td>
         </tr>
       </tbody>
     </table>
@@ -31,7 +42,18 @@
 </template>
 
 <script setup>
+import QrcodeVue from 'qrcode.vue'
+import { nextTick } from 'vue'
+
+const emit = defineEmits(['refreshUrls'])
+
 const props = defineProps(['urls'])
+
+const handleClick = async (id) => {
+  setTimeout(() => {
+    emit('refreshUrls')
+  }, 1000)
+}
 
 const truncate = (text, length) => {
   return text.length > length ? text.slice(0, length) + '...' : text

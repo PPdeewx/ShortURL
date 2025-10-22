@@ -10,6 +10,13 @@
     </div>
 
     <p v-if="message" class="message">{{ message }}</p>
+
+    <div v-if="shortUrl" class="result-box">
+      <p>
+        ✅ Short URL ของคุณ:
+        <a :href="shortUrl" target="_blank">{{ shortUrl }}</a>
+      </p>
+    </div>
   </div>
 </template>
 
@@ -19,6 +26,7 @@ import { ref } from 'vue'
 
 const longUrl = ref('')
 const message = ref('')
+const shortUrl = ref('')
 
 const createShort = async () => {
   if (!longUrl.value.trim()) {
@@ -27,10 +35,14 @@ const createShort = async () => {
   }
 
   try {
-    await axios.post('http://localhost:5000/api/shorten', { longUrl: longUrl.value })
+    const res = await axios.post('http://localhost:5000/api/shorten', {
+      longUrl: longUrl.value
+    })
+
+    shortUrl.value = res.data.shortUrl
     message.value = '✅ สร้าง Short URL สำเร็จ!'
     longUrl.value = ''
-    setTimeout(() => (message.value = ''), 2000)
+
     window.dispatchEvent(new CustomEvent('created'))
   } catch (error) {
     message.value = '❌ ไม่สามารถสร้าง Short URL ได้'
@@ -54,12 +66,6 @@ const createShort = async () => {
 
 .shorten-container:hover {
   transform: translateY(-2px);
-}
-
-h2 {
-  color: #2c3e50;
-  margin-bottom: 10px;
-  font-weight: 600;
 }
 
 .input-group {
@@ -104,5 +110,25 @@ button:active {
   margin-top: 8px;
   color: #2c3e50;
   font-weight: 500;
+}
+
+.result-box {
+  margin-top: 12px;
+  background: #f8faff;
+  border-radius: 10px;
+  padding: 12px 20px;
+  box-shadow: 0 0 0 1px #e2e6ef;
+  text-align: center;
+}
+
+.result-box a {
+  color: #3949c9;
+  font-weight: 600;
+  word-break: break-all;
+  text-decoration: none;
+}
+
+.result-box a:hover {
+  text-decoration: underline;
 }
 </style>

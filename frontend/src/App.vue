@@ -8,7 +8,7 @@
       <hr class="divider" />
 
       <h2 class="history-title">📜 ประวัติการสร้าง</h2>
-      <UrlList :urls="urls" />
+      <UrlList :urls="urls" @refreshUrls="loadUrls" />
     </div>
   </main>
 </template>
@@ -26,7 +26,7 @@ const loadUrls = async () => {
     const res = await axios.get('http://localhost:5000/api/history')
     urls.value = res.data
   } catch (err) {
-    console.error("Error loading history:", err)
+    console.error("Error loading URLs:", err)
   }
 }
 
