@@ -18,7 +18,7 @@ github = https://github.com/PPdeewx/ShortURL
 deploy url free host
 
 backend = render
-https://shorturl-n4pz.onrender.com
+https://shorturl-backend-n4pz.onrender.com
 
 frontend = vercel
-ิhttps://short-url-seven-ashy.vercel.app
+https://short-url-seven-ashy.vercel.app
