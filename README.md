@@ -1,4 +1,4 @@
-github = https://github.com/PPdeewx/ShortURL
+github = https://github.com/PPdeewx/ShortURL.git
 
 วิธีลง
 1.git clone https://github.com/PPdeewx/ShortURL
